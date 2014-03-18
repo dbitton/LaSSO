@@ -16,15 +16,25 @@ Description:
 An R script that creates a FASTA database containing all possible lariat signatures from a given set of introns.
 It requires two text files, as follows:
 
-	1) Sequence file, containing each intron on a separate line
-	2) Header file, containing the headers describing each intron on separate lines (same order as seqence file)
+	1) Sequence file containing each intron on a separate line (5'-3' direction; see also SampleSeqFile.txt)
+	2) Header file containing the headers describing each intron on separate lines (same order as sequence file; see also SampleHeaderFile.txt)
 	
-	The header should be in the following format:
-
-	Intron_id;Chromsome;Strand;Start;Stop;5PrimeFlankingExon - 3PrimeFlankingExon
+	The Sequence file should be in the following format: 
+	
+	GTGCATCGTTTGCTAACTGTGTTTACTGCTCAAGATGCTCAG
+	GTACGTTTCCTTCACACTGAAGCTGTTTTTTCTCTTTACTAATAGTTTATTGTAG
+	GTATGTTTCCTTTATAGTGATGCTTTTTTTCTTTTTTTTTGCTAATAATTTAAAATAG
+	GTAAGAACATTCAAGAAAGCGTTTGATATGAAGTCTGTTCCATTATTGCTCTTAGTGCCTGACAAACGTTGTTAGTCTGTTTTGAGTTTACAAGTTTGTTAAGCTAATAGCCATTCATTGATCTTCATTGTTACATGCTTTCCATGGAATAGTTGGAGGTGTTTACTTTTCAACTTGTTAGCACTCACTTGCTAACATTTTTAATAACAG
+	
+	The header file should be in the following format:(Intron_id;Chromsome;Strand;Start;Stop;5PrimeFlankingExon - 3PrimeFlankingExon )
+	
 	SPAC212.06c;I;1;18307;18348;SPAC212.06c.1:exon:1-SPAC212.06c.1:exon:2
+	SPAC212.04c;I;1;22077;22131;SPAC212.04c.1:exon:1-SPAC212.04c.1:exon:2
+	SPAC212.01c;I;1;29228;29285;SPAC212.01c.1:exon:1-SPAC212.01c.1:exon:2
+	SPAC977.18;I;-1;31558;31767;SPAC977.18.1:exon:3-SPAC977.18.1:exon:2
+	
 
-LaSSO also requires read length and database name arguments
+LaSSO also requires the read length, branch-point letters and a database name to be specified
 	    
 
 Usage:
@@ -34,7 +44,7 @@ LaSSO --help
 
 Arguments:
 
---Seqfile:
+--SeqFile:
 
 The input sequence file.
 
@@ -78,7 +88,7 @@ d.bitton@ucl.ac.uk
 
 ## Extract arguments
 if(length(args) != 5L)
-  stop("--SeqFile,--HeaderFile, --ReadLength --BPS and --DatabaseName must be specified in this order. Please use --help for details.")
+  stop("--SeqFile,--HeaderFile, --ReadLength --BPS and --DatabaseName. Please use --help for details.")
 
 seqfile <- args[1]
 headfile <- args[2]
